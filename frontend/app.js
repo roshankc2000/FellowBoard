@@ -49,3 +49,50 @@ scheduleForm.addEventListener("submit", function (event) {
   // Reset the form fields
   scheduleForm.reset();
 });
+
+//For the resources section
+document.addEventListener("DOMContentLoaded", function () {
+  const resourcesGrid = document.getElementById("resources-grid");
+
+  // Dummy data for resources
+  const resources = [
+    {
+      title: "Presentation File from XYZ Session",
+      link: "https://example.com/resource1",
+    },
+    {
+      title: "Screen Recording from XYZ Session",
+      link: "https://example.com/resource2",
+    },
+    { title: "Notes from ABC Workshop", link: "https://example.com/resource3" },
+    {
+      title: "Tutorial Slides from DEF Session",
+      link: "https://example.com/resource4",
+    },
+    {
+      title: "PDF Guide from GHI Session",
+      link: "https://example.com/resource5",
+    },
+    {
+      title: "Audio Recording from JKL Event",
+      link: "https://example.com/resource6",
+    },
+    // Add more dummy data as needed
+  ];
+
+  // Generate cards for each resource
+  resources.forEach((resource) => {
+    const card = document.createElement("div");
+    card.classList.add("resource-card");
+    card.innerHTML = `
+    <img 
+                class="card-image"
+                src="https://vetresources.com.au/wp-content/uploads/2023/02/Planning-a-training-session-1024x683-1.jpg"
+                alt="${resource.title}"
+            />
+            <h3>${resource.title}</h3>
+            <a href="${resource.link}" target="_blank" class="resource-link">View Resource</a>
+        `;
+    resourcesGrid.appendChild(card);
+  });
+});

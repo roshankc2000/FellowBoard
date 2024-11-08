@@ -79,7 +79,7 @@
 
             <!-- Sessions -->
             <div id="sessions" class="sessions-container hidden">
-                <h1 id="blue_head">Schedule a Virtual Session</h1>
+                <h1 id="blue-head">Schedule a Virtual Session</h1>
                 <form id="scheduleForm">
                     <label for="sessionName">Session Name:</label>
                     <input type="text" id="sessionName" required>
@@ -99,12 +99,15 @@
             </div>
 
             <!-- Resources -->
-            <div id="resources" class="resources-container hidden">
+
+            <div id="resources" class="resources-container">
                 <div class="section-header">
-                    <h2>Resources</h2>
+                    <div class="resource-header">
+                        <h1>Resources</h1>
+                    </div>
                     <button id="new-resource-btn" class="btn-primary">Upload Resource</button>
                 </div>
-                <div class="resources-grid" id="resources-grid"></div>
+                <div id="resources-grid" class="resources-grid"></div>
             </div>
 
             <!-- Projects -->

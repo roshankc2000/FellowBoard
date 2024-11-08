@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Navigation -->
@@ -78,11 +79,23 @@
 
             <!-- Sessions -->
             <div id="sessions" class="sessions-container hidden">
-                <div class="section-header">
-                    <h2>Sessions</h2>
-                    <button id="new-session-btn" class="btn-primary">New Session</button>
+                <h1>Schedule a Virtual Session</h1>
+                <form id="scheduleForm">
+                    <label for="sessionName">Session Name:</label>
+                    <input type="text" id="sessionName" required>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" required>
+
+                    <button type="submit">Schedule</button>
+                </form>
+                <div id="scheduledSessions">
+                    <h2>Scheduled Sessions</h2>
+                    <ul id="sessionList"></ul>
                 </div>
-                <div class="sessions-grid" id="sessions-grid"></div>
             </div>
 
             <!-- Resources -->
@@ -149,4 +162,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

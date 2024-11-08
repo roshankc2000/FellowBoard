@@ -24,3 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Event listener for scheduling a session
+scheduleForm.addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form from submitting normally
+
+  // Get form input values
+  const sessionName = document.getElementById("sessionName").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  // Create a new list item for the session
+  const listItem = document.createElement("li");
+  listItem.innerHTML = `
+      <strong>Session:</strong> ${sessionName} | 
+      <strong>Date:</strong> ${date} | 
+      <strong>Time:</strong> ${time} |
+      <a href="https://example.com" target="_blank">Join Link</a>
+    `;
+
+  // Append the new session to the session list
+  sessionList.appendChild(listItem);
+
+  // Reset the form fields
+  scheduleForm.reset();
+});

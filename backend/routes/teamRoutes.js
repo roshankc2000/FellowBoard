@@ -1,6 +1,6 @@
 import express from 'express';
 import { createTeam, joinTeam } from '../controllers/teamController.js';
-import auth from '../middleware/auth.js';  // Assuming you have a middleware for authentication
+import auth from '../middleware/auth.js'; 
 
 const router = express.Router();
 

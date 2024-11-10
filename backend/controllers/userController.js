@@ -1,18 +1,76 @@
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs'; // For password comparison
 import jwt from 'jsonwebtoken'; // For generating the token
+import Fellowship from '../models/fellowship.js';
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password, phone_number } = req.body;
+    const { name, email, password, phone_number, fellowship_code, fellowship_name } = req.body;
 
     // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the user
+    // If an organizer is creating a fellowship
+    if (req.body.role === 'organizer') {
+      if (!fellowship_name) {
+        return res.status(400).json({ message: 'Fellowship name is required for organizers' });
+      }
+
+      // Create the fellowship with the name from the request body
+      const fellowship = await Fellowship.create({
+        name: fellowship_name,  // Use the fellowship_name from the request body
+        special_code: Math.floor(100000 + Math.random() * 900000).toString(), // Generate a random 6-digit code
+      });
+
+      // Create the user and associate them with the fellowship
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        phone_number,
+        fellowship_id: fellowship.id, // Associate the user with the fellowship
+        role: 'organizer', // Set the user's role as organizer
+      });
+
+      return res.status(201).json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone_number: user.phone_number,
+        fellowship: fellowship,  // Return the fellowship details
+      });
+    }
+
+    // If a normal user joins with a fellowship code
+    if (fellowship_code) {
+      const fellowship = await Fellowship.findOne({ where: { special_code: fellowship_code } });
+
+      if (!fellowship) {
+        return res.status(400).json({ message: 'Invalid fellowship code' });
+      }
+
+      // Create the user and associate them with the fellowship
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        phone_number,
+        fellowship_id: fellowship.id, // Associate the user with the fellowship
+        role: 'user',  // Set the role as user
+      });
+
+      return res.status(201).json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone_number: user.phone_number,
+        fellowship: fellowship,  // Return the fellowship details
+      });
+    }
+
+    // If no fellowship code is provided, create the user without fellowship
     const user = await User.create({ name, email, password: hashedPassword, phone_number });
 
-    // Respond with the created user (excluding password)
     res.status(201).json({
       id: user.id,
       name: user.name,
@@ -58,6 +116,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -82,7 +141,7 @@ export const loginUser = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role, fellowship_id: user.fellowship_id },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -97,6 +156,7 @@ export const loginUser = async (req, res) => {
         email: user.email,
         phone_number: user.phone_number,
         role: user.role,
+        fellowship_id: user.fellowship_id,
       },
     });
 
@@ -111,7 +171,7 @@ export const loginUser = async (req, res) => {
 
 export const getProfile = async (req, res) => {
     try {
-      // Use req.user from the authentication middleware (JWT decoded user)
+
       const userId = req.user.id;
   
       const user = await User.findOne({

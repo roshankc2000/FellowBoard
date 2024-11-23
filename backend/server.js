@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import teamRoutes from './routes/teamRoutes.js';
+import announcementRoutes from './routes/announcementRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 
 dotenv.config();
@@ -16,6 +17,9 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/announcements', announcementRoutes);
+
+
 
 const PORT = process.env.PORT || 1337;
 

@@ -21,10 +21,6 @@ app.use('/api/events', eventRoutes); // Event-related APIs
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Fallback route for SPA (serves "index.html" for unmatched routes)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 const PORT = process.env.PORT || 1337;
 app.listen(PORT, () => {

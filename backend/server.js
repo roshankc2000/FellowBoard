@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import teamRoutes from './routes/teamRoutes.js';
+import announcementRoutes from './routes/announcementRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
+import resourceRoutes from './routes/resourceRoutes.js';
 import path from 'path';
 
 dotenv.config();
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use('/api/users', userRoutes); // User-related APIs
 app.use('/api/teams', teamRoutes); // Team-related APIs
 app.use('/api/events', eventRoutes); // Event-related APIs
+app.use('/api/announcements', announcementRoutes);
+app.use('/api/resources', resourceRoutes);
 
 // Serve static files from the "public" folder
 const __dirname = path.resolve();

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FellowBoard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>FellowBoard</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#dashboard" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#sessions"><i class="fas fa-calendar"></i> Sessions</a></li>
+                <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+                <li><a href="#projects"><i class="fas fa-tasks"></i> Projects</a></li>
+                <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Auth Forms -->
+            <div id="auth-container" class="auth-container">
+                <div class="auth-form" id="login-form">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+                </div>
+
+                <div class="auth-form hidden" id="register-form">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <input type="text" placeholder="Username" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <select required>
+                            <option value="">Select Role</option>
+                            <option value="fellow">Fellow</option>
+                            <option value="mentor">Mentor</option>
+                        </select>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="dashboard hidden">
+                <div class="dashboard-header">
+                    <h1>Welcome Back, <span id="username"></span></h1>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Upcoming Sessions</h3>
+                        <div id="upcoming-sessions"></div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Recent Resources</h3>
+                        <div id="recent-resources"></div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Active Projects</h3>
+                        <div id="active-projects"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sessions -->
+            <div id="sessions" class="sessions-container hidden">
+                <h1 id="blue-head">Schedule a Virtual Session</h1>
+                <form id="scheduleForm">
+                    <label for="sessionName">Session Name:</label>
+                    <input type="text" id="sessionName" required>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" required>
+
+                    <button type="submit">Schedule</button>
+                </form>
+                <div id="scheduledSessions">
+                    <h2>Scheduled Sessions</h2>
+                    <ul id="sessionList"></ul>
+                </div>
+            </div>
+
+            <!-- Resources -->
+
+            <div id="resources" class="resources-container">
+                <div class="section-header">
+                    <div class="resource-header">
+                        <h1>Resources</h1>
+                    </div>
+                    <button id="new-resource-btn" class="btn-primary">Upload Resource</button>
+                </div>
+                <div id="resources-grid" class="resources-grid"></div>
+            </div>
+
+            <!-- Projects -->
+            <div id="projects" class="projects-container hidden">
+                <div class="section-header">
+                    <h2>Projects</h2>
+                    <button id="new-project-btn" class="btn-primary">New Project</button>
+                </div>
+                <div class="projects-grid" id="projects-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="session-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>New Session</h2>
+            <form id="session-form">
+                <input type="text" placeholder="Session Title" required>
+                <textarea placeholder="Description" required></textarea>
+                <input type="datetime-local" required>
+                <button type="submit">Create Session</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="resource-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload Resource</h2>
+            <form id="resource-form">
+                <input type="text" placeholder="Resource Title" required>
+                <textarea placeholder="Description" required></textarea>
+                <input type="file" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="project-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>New Project</h2>
+            <form id="project-form">
+                <input type="text" placeholder="Project Title" required>
+                <textarea placeholder="Description" required></textarea>
+                <select id="fellow-select" required>
+                    <option value="">Select Fellow</option>
+                </select>
+                <button type="submit">Create Project</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
